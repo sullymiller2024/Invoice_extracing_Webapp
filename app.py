@@ -40,7 +40,7 @@ def upload_files():
     return response
 
 
-  return send_file(result_file_path, as_attachment=True, attachment_filename='results.xlsx')
+  return send_file(result_file_path, as_attachment=True, download_name='results.xlsx')
 
 def process_invoices(pdf_paths):
   master_df = pd.DataFrame()
