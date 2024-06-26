@@ -11,6 +11,7 @@ import fitz
 from PIL import Image
 app = Flask(__name__)
 pytesseract.pytesseract.tesseract_cmd = '/app/.apt/usr/bin/tesseract'
+tessdata_prefix = os.getenv('TESSDATA_PREFIX', '/default/path/if/variable/is/missing')
 @app.route('/', methods=['POST'])
 def upload_files():
   uploaded_files = request.files.getlist('invoices')
