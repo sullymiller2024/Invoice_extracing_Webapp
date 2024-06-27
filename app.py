@@ -12,7 +12,7 @@ from PIL import Image
 app = Flask(__name__)
 pytesseract.pytesseract.tesseract_cmd = '/app/.apt/usr/bin/tesseract'
 tessdata_prefix = os.getenv('TESSDATA_PREFIX', '/default/path/if/variable/is/missing')
-openai_client = openai.OpenAI(api_key='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')
+openai_client = openai.OpenAI(api_key='sk-proj-HWUf90uUpH7ca1M7lF2bT3BlbkFJY0RFWeyge2jYeyhd4sS9')
 @app.route('/', methods=['POST'])
 def upload_files():
   uploaded_files = request.files.getlist('invoices')
