@@ -73,21 +73,20 @@ def extract_text_from_scanned_pdf(pdf_path):
     return text
 
 def parse_invoice_with_model(extracted_text):
-   openai.api_key = apiKey
-   prompt_text ="""Please parse the following invoice information and return the data in standard dictionary json format with out extra char, recognize invoice number
-   'Invoice Number', 'Invoice Date', 'Ship To', and 'Line Items'. Each 'Line Item' should include 'QTY', 'Description' , 'Day', 'Week', '4Week',
-    and 'Price'.There are some items that only have description you must not miss any items even if any information except description is 0.  also be carful  tax count as item in the invoice so the description for that is the type of tax and the amount is the price the qty is 1 for that and it dosent have other info like other inf so put 0 for them like day and week and 4week and :"""
-   response = openai.chat.completions.create(
-    model="gpt-4o",
-    messages=[
-        {"role": "system", "content": "Extract structured data from the following invoice text"},
-        {"role": "user", "content": prompt_text+extracted_text}
-      ]
-   )
-   content_to_save= response.choices[0].message.content
-   clean_jason = content_to_save.replace('```json','').replace('```','').strip()
-   data = json.loads(clean_jason)
-   return data
+    prompt_text ="""Please parse the following invoice information and return the data in standard dictionary json format with out extra char, recognize invoice number
+            'Invoice Number', 'Invoice Date', 'Ship To', and 'Line Items'. Each 'Line Item' should include 'QTY', 'Description' , 'Day', 'Week', '4Week',
+             and 'Price'.There are some items that only have description you must not miss any items even if any information except description is 0.  also be carful  tax count as item in the invoice so the description for that is the type of tax and the amount is the price the qty is 1 for that and it dosent have other info like other inf so put 0 for them like day and week and 4week and :"""
+    response = openai.chat.completions.create(
+         model="gpt-4o",
+         messages=[
+               {"role": "system", "content": "Extract structured data from the following invoice text"},
+               {"role": "user", "content": prompt_text+extracted_text}
+          ]
+       )
+    content_to_save= response.choices[0].message.content
+    clean_jason = content_to_save.replace('```json','').replace('```','').strip()
+    data = json.loads(clean_jason)
+    return data
 
 def process_batch(pdf_paths):
   all_items=[]
