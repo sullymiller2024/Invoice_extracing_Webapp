@@ -9,6 +9,8 @@ import os
 import io
 import fitz
 from PIL import Image
+from dotenv import load_dotenv
+load_dotenv()
 app = Flask(__name__)
 pytesseract.pytesseract.tesseract_cmd = '/app/.apt/usr/bin/tesseract'
 tessdata_prefix = os.getenv('TESSDATA_PREFIX', '/default/path/if/variable/is/missing')
